@@ -30,12 +30,21 @@ class Video extends React.Component {
 		var $video = this.$video = this.api.$video = ReactDOM.findDOMNode( this.refs.video )
 		// window.$video = $video;
 		$video.addEventListener("loadedmetadata", this._metaDataLoaded )
+		$video.addEventListener("ended", this._onEnded )
 		// this update interval gap is too big make progressbar not snapy
 		// $video.addEventListener("timeupdate", this._timeupdate )
 		$video.addEventListener("progress", this._progress )
 
 
 		if( this.props.autoPlay && !this.seekbarUpdateTimer ) this.seekbarUpdateInterval();
+	}
+
+
+	_onEnded(e){
+		//console.log("metadata loaded")
+		if(this.props.onEnded && typeof this.props.onEnded == "function" ){
+			this.props.onEnded( this.api );
+		}
 	}
 
 	/**
@@ -317,7 +326,8 @@ class Video extends React.Component {
 
 Video.propTypes = {
 	// callbacks
-	metaDataLoaded: 					React.PropTypes.func,// video's meta data loaded, return video element
+	metaDataLoaded: 		React.PropTypes.func,// video's meta data loaded, return video element
+	onEnded: 					  React.PropTypes.func,
 
 	// properties
 	sources: 						React.PropTypes.array,
