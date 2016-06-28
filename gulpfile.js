@@ -21,14 +21,13 @@ var sass = require('gulp-sass'),
     minifyCSS = require('gulp-minify-css');
 
 /**
- * parse cli options: 
+ * parse cli options:
  * --app=editor or client
  * --env=development or production
  */
 var argv = require('minimist')(process.argv.slice(2));
 
 var paths = {
-	scss: 'scss/react-html5-video.scss',
 	jsDemoMain:"demo/app/app.demo.js",
 
 	dest: 		"./demo/build",
@@ -44,7 +43,7 @@ gulp.task('scss', function() {
     .pipe(minifyCSS())
     .pipe(gulp.dest(argv.env === 'production'?"./lib": paths.dest ))
     .pipe(
-    	gulpif(argv.env!='production',livereload())	
+    	gulpif(argv.env!='production',livereload())
     );
 });
 
@@ -63,7 +62,7 @@ gulp.task('demoApp',function(){
 	}))
 	.pipe( // only minify in production
 		gulpif(argv.env === 'production', uglify({ compress:true, mangle:true}))
-	) 
+	)
 	.on( "error", handleError)
 	.pipe(gulp.dest(paths.dest))
 })
@@ -75,7 +74,7 @@ gulp.task('watch',["watchify"],function(){
 	gulp.watch('./demo/build/**/*').on('change', livereload.changed);
 	gulp.watch('./demo/**/*.css').on('change', livereload.changed);
 	// gulp.watch( paths.html ).on('change', livereload.changed);
-	gulp.watch( 'scss/**/*.scss' ,['scss']);	
+	gulp.watch( 'scss/**/*.scss' ,['scss']);
 });
 
 
@@ -139,7 +138,7 @@ gulp.task("js-es6",function(){
 // 		console.log("server file changed >> "+ event.path.replace(__dirname,""))
 // 		var destPath ="./dist/" + event.path.replace(__dirname+"/src/","").replace(/[^\/]+$/,"");
 // 		console.log(destPath)
-		
+
 // 		return gulp.src( event.path )
 //       .pipe( babel({
 //       	blacklist: ['regenerator','bluebirdCoroutines'],
