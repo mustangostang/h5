@@ -17,7 +17,7 @@ class Video extends React.Component {
 			this["_"+name] = this.api[name] = this["_"+name].bind(this)
 		});
 		// manually bind all handlers
-		var handlers = ["metaDataLoaded","timeupdate","durationchange","progress"];
+		var handlers = ["metaDataLoaded","timeupdate","durationchange","progress","onEnded"];
 		handlers.forEach( name => this["_"+name] = this["_"+name].bind(this) )
 
 	}
