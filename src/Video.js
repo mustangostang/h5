@@ -49,7 +49,7 @@ class Video extends React.Component {
 	}
 	_onVolumeChange(e){
 		if(this.props.onVolumeChange && typeof this.props.onVolumeChange == "function" ){
-			this.props.onVolumeChange( this.api );
+			this.props.onVolumeChange( this.state.volume );
 		}
 	}
 	/**
