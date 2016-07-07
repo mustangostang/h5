@@ -17,7 +17,7 @@ class Video extends React.Component {
 			this["_"+name] = this.api[name] = this["_"+name].bind(this)
 		});
 		// manually bind all handlers
-		var handlers = ["metaDataLoaded","timeupdate","durationchange","progress","onEnded"];
+		var handlers = ["metaDataLoaded","timeupdate","durationchange","progress","onEnded","onVolumeChange"];
 		handlers.forEach( name => this["_"+name] = this["_"+name].bind(this) )
 
 	}
@@ -31,6 +31,7 @@ class Video extends React.Component {
 		// window.$video = $video;
 		$video.addEventListener("loadedmetadata", this._metaDataLoaded )
 		$video.addEventListener("ended", this._onEnded )
+		$video.addEventListener("volumechange", this._onVolumeChange )
 		// this update interval gap is too big make progressbar not snapy
 		// $video.addEventListener("timeupdate", this._timeupdate )
 		$video.addEventListener("progress", this._progress )
@@ -46,7 +47,11 @@ class Video extends React.Component {
 			this.props.onEnded( this.api );
 		}
 	}
-
+	_onVolumeChange(e){
+		if(this.props.onVolumeChange && typeof this.props.onVolumeChange == "function" ){
+			this.props.onVolumeChange( this.state.volume );
+		}
+	}
 	/**
 	 * after metaData Loaded we can get video dimentions and set width,height of video wraper;
 	 */
@@ -328,6 +333,7 @@ Video.propTypes = {
 	// callbacks
 	metaDataLoaded: 		React.PropTypes.func,// video's meta data loaded, return video element
 	onEnded: 					  React.PropTypes.func,
+	onVolumeChange: 		React.PropTypes.func,
 
 	// properties
 	sources: 						React.PropTypes.array,
