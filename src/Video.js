@@ -231,10 +231,6 @@ class Video extends React.Component {
 							value={this.state.seekProgress}
 							onChange={e=>this._setTime(e.target.value,true)} />
 					</div>
-					<div className="r5-timecode">
-						<span className="current-time">{this.state.currentTime}</span>
-						<span className="duration">{this.state.duration}</span>
-					</div>
 					<div className="r5-panel">
 						<button className="r5-play" onClick={this._togglePlay}>
 							{ this.state.isPlaying ? this.icons.pause : this.icons.play }
@@ -246,10 +242,11 @@ class Video extends React.Component {
 								<input type="range" min="0" max="1" step="0.05" value={this.state.volume} onChange={e=>this._volume(e.target.value)}/>
 							</div>
 						</div>
-						<button className="r5-fullscreen" onClick={this._fullscreen}>{this.icons.fullscreen}</button>
-						<div className="r5-pull-right">
-							{ this.$subTitleMenu || this.$getSubtitleTracksMenu() || ""}
+						<div className="r5-timecode">
+							<span className="current-time">{this.state.currentTime}</span>
+							<span className="duration">{this.state.duration}</span>
 						</div>
+						<div className="r5-fullscreen" onClick={this._fullscreen}>{this.icons.fullscreen}</div>
 					</div>
 				</div>
 			</div>
