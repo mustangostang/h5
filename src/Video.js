@@ -236,8 +236,8 @@ class Video extends React.Component {
 							{ this.state.isPlaying ? this.icons.pause : this.icons.play }
 						</button>
 						<div className="r5-volume">
-							<button>{ this.state.isMuted? this.icons.mute : (this.state.volume>0.7?this.icons.volumeUp: this.icons.volumeDown) }</button>
-							<div className="r5-volume-inner" style={{width:"80px"}}>
+							<div className={ this.state.isMuted ? "volume-icon muted" : this.state.volume > .7 ? "volume-icon high" : "volume-icon medium" }></div>
+							<div className="r5-volume-inner" style={{width:"71px"}}>
 								<div className="r5-volume-bar" style={{width: (this.state.volume*100)+"%"}}></div>
 								<input type="range" min="0" max="1" step="0.05" value={this.state.volume} onChange={e=>this._volume(e.target.value)}/>
 							</div>
@@ -246,7 +246,7 @@ class Video extends React.Component {
 							<span className="current-time">{this.state.currentTime}</span>
 							<span className="duration">{this.state.duration}</span>
 						</div>
-						<div className="r5-fullscreen" onClick={this._fullscreen}>{this.icons.fullscreen}</div>
+						<div className="r5-fullscreen" onClick={this._fullscreen}></div>
 					</div>
 				</div>
 			</div>
