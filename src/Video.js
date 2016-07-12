@@ -201,6 +201,7 @@ class Video extends React.Component {
 		var options = { loop, autoPlay, poster,preload };
 		var wraperStyle = {}, contentWraperStyle = {};
 		let $video = this.$video || {};
+		$video.volume = this.props.volume;
 		let vWidth =  this.props.width || $video.videoWidth || $video.clientWidth;
 		let vHeight = this.props.height || $video.videoHeight || $video.clientHeight;
 		options.width = vWidth
