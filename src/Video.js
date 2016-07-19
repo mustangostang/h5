@@ -323,6 +323,16 @@ class Video extends React.Component {
 
 	componentWillUnmount(){
 		if(this.seekbarUpdateTimer) clearInterval( this.seekbarUpdateTimer );
+		var $video = this.$video;
+		if ($video) {
+			$video.removeEventListener("loadedmetadata", this._metaDataLoaded )
+			$video.removeEventListener("ended", this._onEnded )
+			$video.removeEventListener("volumechange", this._onVolumeChange )
+			$video.removeEventListener("progress", this._progress )
+			$video.pause();
+			$video.src = ""; // Stops download.
+			$video.load();
+		}
 	}
 
 }
