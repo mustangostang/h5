@@ -17,7 +17,7 @@ class Video extends React.Component {
 			this["_"+name] = this.api[name] = this["_"+name].bind(this)
 		});
 		// manually bind all handlers
-		var handlers = ["metaDataLoaded","timeupdate","durationchange","progress","onEnded","onVolumeChange"];
+		var handlers = ["metaDataLoaded","timeupdate","durationchange","progress","onEnded","onVolumeChange", "onFullscreen"];
 		handlers.forEach( name => this["_"+name] = this["_"+name].bind(this) )
 
 	}
@@ -32,6 +32,9 @@ class Video extends React.Component {
 		$video.addEventListener("loadedmetadata", this._metaDataLoaded )
 		$video.addEventListener("ended", this._onEnded )
 		$video.addEventListener("volumechange", this._onVolumeChange )
+		$video.addEventListener("requestFullScreen", this._onFullscreen )
+		$video.addEventListener("cancelFullscreen", this._onExitFullscreen )
+
 		// this update interval gap is too big make progressbar not snapy
 		// $video.addEventListener("timeupdate", this._timeupdate )
 		$video.addEventListener("progress", this._progress )
@@ -50,6 +53,16 @@ class Video extends React.Component {
 	_onVolumeChange(e){
 		if(this.props.onVolumeChange && typeof this.props.onVolumeChange == "function" ){
 			this.props.onVolumeChange( this.state.volume );
+		}
+	}
+	_onFullscreen() {
+		if(this.props.onFullscreen && typeof this.props.onFullscreen == "function" ){
+			this.props.onFullscreen();
+		}
+	}
+	_onExitFullscreen() {
+			if(this.props.onExitFullscreen && typeof this.props.onExitFullscreen == "function" ){
+			this.props.onExitFullscreen();
 		}
 	}
 	/**
