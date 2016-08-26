@@ -229,10 +229,12 @@ class Video extends React.Component {
 
 		return (
 			<div className="r5-wraper" style={wraperStyle}>
-				<video ref="video" {...options} >
-					{  this.$getSource( sources) }
-					{ subtitles && subtitles.length>0? this.$getSubtitleTracks(subtitles) : "" }
-				</video>
+				<div className="video-flex-wrapper">
+					<video ref="video" {...options} >
+						{  this.$getSource( sources) }
+						{ subtitles && subtitles.length>0? this.$getSubtitleTracks(subtitles) : "" }
+					</video>
+				</div>
 				<div className="r5-overlay" onClick={this._togglePlay}>
 					{!this.$video || this.$video.currentTime<=0? this.icons.playCircle:""}
 				</div>
