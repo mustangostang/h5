@@ -12,7 +12,7 @@
  - ~~subtitle tracks~~
  - network error notification
  - loading spinner
- - custom menu for mouse right click 
+ - custom menu for mouse right click
  - register any event listener on parent component
  - playback rate change
  - select defferient resulution
@@ -22,10 +22,6 @@
 ##install
 ```
 npm install --save react-h5-video
-```
-load in the stylesheet,(in order to make it easier for developers to customize video player's style, css is not written in js)
-```html
-<link rel="stylesheet" type="text/css" href="node_modules/react-h5-video/lib/react-h5-video.css">
 ```
 basic usage
 ```javascript
@@ -48,7 +44,7 @@ class MyAewsomeApp extends React.Component{
 ```javascript
 Video.propTypes = {
 	metaDataLoaded: 		React.PropTypes.func,// video's meta data loaded callback
-	
+
 
 	// properties
 	sources:		React.PropTypes.array,
@@ -57,7 +53,7 @@ Video.propTypes = {
 	controls:		React.PropTypes.bool,
 	autoHideControls:		React.PropTypes.bool,
 	controlPanelStyle:		React.PropTypes.oneOf(["overlay","fixed"]),
-	preload:		React.PropTypes.oneOf(["auto","none","metadata"]), 
+	preload:		React.PropTypes.oneOf(["auto","none","metadata"]),
 	loop:		React.PropTypes.bool,
 	mute:		React.PropTypes.bool,
 	poster:		React.PropTypes.string,
@@ -122,7 +118,7 @@ the reutned api has throse property:
 class App extends React.Component{
 	loaded(api){
 		this.videoApi = api;
-		// console.log( api.$video.duration ) 
+		// console.log( api.$video.duration )
 		// to toggle play state, just call this.videoApi.togglePlay()
 	}
 	render(){
