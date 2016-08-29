@@ -24,3 +24,5 @@ dump.rdb
 .idea/
 
 
+lib
+dist
