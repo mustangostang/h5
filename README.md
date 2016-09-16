@@ -1,4 +1,3 @@
-[WIP] don't use in production
 ===========
 ![preview](snapshot.jpg)
 [demo](https://github.com/eisneim/react-html5-video)
@@ -19,14 +18,16 @@
  - use without browserify
  - complete tests
 
-##install
+##install, build and publish
 ```
-npm install --save react-h5-video
+npm install --save @wyscout/beckham
+npm run build
+npm publish //update module version in package.json before
 ```
 basic usage
 ```javascript
 import React from "react";
-import Video from "react-h5-video";
+import Video from "@wyscout/beckham";
 
 class MyAewsomeApp extends React.Component{
 	render(){
