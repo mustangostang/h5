@@ -1,10 +1,11 @@
 {
   "name": "@wyscout/beckham",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "html5 video component for react.js app",
   "main": "lib/index",
   "scripts": {
     "prepublish": "npm run build:commonjs & npm run build:umd ",
+    "build": "npm run build:commonjs & npm run build:umd ",
     "build:commonjs": "cp -R src/. lib/ && babel ./src -d lib",
     "build:umd": "webpack dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"

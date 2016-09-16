@@ -11,7 +11,7 @@ class Video extends React.Component {
 		super(props,context)
 		// store all public handler here, and return this api object to parent component;
 		this.api = {};
-		var pubHandlers = ["togglePlay","setTime","fullscreen","volume"];
+		var pubHandlers = ["play","pause","seekbarUpdateInterval","togglePlay","setTime","fullscreen","volume"];
 		// save public handlers to api object
 		pubHandlers.forEach( name => {
 			this["_"+name] = this.api[name] = this["_"+name].bind(this)
@@ -82,6 +82,9 @@ class Video extends React.Component {
 	seekbarUpdateInterval(){
 		this.seekbarUpdateTimer = setInterval( this._timeupdate, 80);
 	}
+	_seekbarUpdateInterval(){
+		this.seekbarUpdateTimer = setInterval( this._timeupdate, 80);
+	}
 
 	_setTime( percent, isPercent ){
 		if(this.state.seekDisabled) return;
@@ -124,17 +127,23 @@ class Video extends React.Component {
 		this.setState({loadedProgress: total / this.$video.duration * 100 })
 	}
 
+	_play() {
+		if(this.$video.currentTime >= this.$video.duration ) this.$video.currentTime = 0;
+		this.$video.play();
+		this.setState({isPlaying: true})
+	}
+	_pause() {
+		this.$video.pause();
+		this.setState({isPlaying: false})
+	}
 	_togglePlay(){
 		//console.log("toggle play")
 		if( !this.seekbarUpdateTimer ) this.seekbarUpdateInterval();
 
 		if(!this.state.isPlaying){
-			if(this.$video.currentTime >= this.$video.duration ) this.$video.currentTime = 0;
-			this.$video.play();
-			this.setState({isPlaying: true})
+			this._play()
 		}else{
-			this.$video.pause();
-			this.setState({isPlaying: false})
+			this._pause()
 		}
 	}
 
