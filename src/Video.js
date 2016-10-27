@@ -252,7 +252,7 @@ class Video extends React.Component {
 						  this.props.timeMarkers.map(marker => {
 						  const duration = (this.$video && this.$video.duration) || 5;
 						  const pos = marker.value / duration * 100;
-							return <span className="r5-time-marker" style={{position: 'absolute', display: 'inline-block', width:'20px', height:'20px', marginLeft: '-10px', left: '' +pos + '%'}}
+							return <span className="r5-time-marker" style={{position: 'absolute', display: 'inline-block', left: '' +pos + '%'}}
 								onClick={()=>this._setTime(marker.value, false)}
 							></span>
 						})}

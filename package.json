@@ -1,6 +1,6 @@
 {
   "name": "@wyscout/beckham",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "html5 video component for react.js app",
   "main": "lib/index",
   "scripts": {
