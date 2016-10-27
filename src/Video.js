@@ -249,10 +249,12 @@ class Video extends React.Component {
 				<div className={controlsClass}>
 					<div className="r5-seekbar-wraper" ref="seekbarWraper">
 						{!!this.props.timeMarkers &&
-						  this.props.timeMarkers.map(marker => {
+						  this.props.timeMarkers.map((marker, i) => {
 						  const duration = (this.$video && this.$video.duration) || 5;
 						  const pos = marker.value / duration * 100;
-							return <span className="r5-time-marker" style={{position: 'absolute', display: 'inline-block', left: '' +pos + '%'}}
+							return <span key={"marker" + i}
+								className="r5-time-marker"
+								style={{position: 'absolute', display: 'inline-block', left: '' +pos + '%'}}
 								onClick={()=>this._setTime(marker.value, false)}
 							></span>
 						})}
