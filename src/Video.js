@@ -90,7 +90,6 @@ class Video extends React.Component {
 		if(this.state.seekDisabled) return;
 		if( isPercent && percent>100) return;
 		var time = isPercent? percent * this.$video.duration / 100 : percent;
-		//console.log("change time", time )
 		if(this.$video.fastSeek ){
 			this.$video.fastSeek(time)
 		}else{
@@ -235,7 +234,6 @@ class Video extends React.Component {
 		var controlsClass = `r5-controls r5-controls--${controlPanelStyle} ${autoHideControls?"r5-auto-hide":""} `
 		if(!this.props.controls) controlsClass = "r5-controls-hidden";
 
-
 		return (
 			<div className="r5-wraper" style={wraperStyle}>
 				<div className="video-flex-wrapper">
@@ -250,6 +248,15 @@ class Video extends React.Component {
 				<div className="r5-content" style={contentWraperStyle}>{this.props.children}</div>
 				<div className={controlsClass}>
 					<div className="r5-seekbar-wraper" ref="seekbarWraper">
+						{!!this.props.timeMarkers &&
+						  this.props.timeMarkers.map(marker => {
+						  const duration = (this.$video && this.$video.duration) || 5;
+						  const pos = marker.value / duration * 100;
+						  debugger;
+							return <span className="r5-time-marker" style={{position: 'relative', display: 'inline-block', width:'20px', height:'20px', marginLeft: '-10px', left: '' +pos + '%'}}
+								onClick={()=>this._setTime(marker.value, false)}
+							></span>
+						})}
 						<div className="r5-seekbar-loaded" ref="seekbar" style={{width:this.state.loadedProgress+"%"}}></div>
 						<div className="r5-seekbar" ref="loadedbar" style={{width:this.state.seekProgress+"%"}}></div>
 						<input type="range" min="0.0" max="100.0" step="0.5"
@@ -387,6 +394,7 @@ Video.propTypes = {
 }
 
 Video.defaultProps = {
+	timeMarkers:     [],
 	autoPlay:  			false,
 	loop: 					false,
 	controls: 			true,
