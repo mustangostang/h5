@@ -253,7 +253,7 @@ class Video extends React.Component {
 						  const duration = (this.$video && this.$video.duration) || 5;
 						  const pos = marker.value / duration * 100;
 							return <span key={"marker" + i}
-								className="r5-time-marker"
+								className={`r5-time-marker ${marker.active ? 'active' : ''}`}
 								style={{position: 'absolute', display: 'inline-block', left: '' +pos + '%'}}
 								onClick={()=>this._setTime(marker.value, false)}
 							></span>

@@ -85,6 +85,7 @@ class Playlist extends React.Component {
     if (!this.props.video) return null; // Loader here?
     const { id, url } = this.props.video;
     return (<VideoPlayer key={ id }
+      timeMarkers={[{value: "4.00", active: true}, {value: "5.00"}]}
       volume={this.props.volume}
       autoPlay sources={ [url] }
       controlPanelStyle="fixed"
