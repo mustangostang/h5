@@ -1,0 +1,261 @@
+.detailed-info-body {
+  &.opened {
+    border-left: solid #27AAE1;
+  }
+}
+.detailed-info-trigger {
+  cursor: pointer;
+}
+td.detailed-info {
+  background-color: #fff;
+  border-top: 1px solid #c1c1c1;
+  border-bottom: 1px solid #c1c1c1;
+  padding: 0 10px;
+}
+.detailed-info-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  min-height: 280px;
+  font-weight: 400;
+  white-space: normal;
+}
+.detailed-info-flex-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+  min-width: 810px;
+}
+.detailed-info-title {
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  padding-left: 20px;
+  margin: 0;
+  margin-bottom: 15px;
+  background-size: 12px;
+  background-position: left center;
+  background-repeat: no-repeat;
+  &.player {
+    background-image: url(../images/player.svg);
+  }
+  &.positions {
+    background-image: url(../images/player-unselected.svg);
+    background-size: 14px;
+  }
+  &.transfer-history {
+    background-image: url(../images/detailed-info-transfer-history.svg);
+  }
+  &.performance {
+    background-image: url(../images/detailed-info-performance.svg);
+    background-size: 13px;
+    background-position: left 2px;
+  }
+  &.injuries {
+    background-image: url(../images/detailed-info-injuries.svg);
+  }
+}
+.detailed-info-common {
+  flex: 1 1 auto;
+  display: inline-flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px 30px 0 20px;
+  margin-right: 40px;
+  position: relative;
+  box-sizing: content-box;
+  max-width: 310px;
+  min-width: 150px;
+  min-height: 110px;
+  border-right: 1px solid #c1c1c1;
+  text-align: center;
+  .detailed-info-common-centerer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+  .expanded-photo {
+    width: 114px;
+    height: 114px;
+    position: relative;
+    .expanded-photo-team-logo-wrapper {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #fff;
+      overflow: hidden;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      text-align: center;
+    }
+    .expanded-photo-team-logo {
+      height: 28px;
+      margin-top: 2px;
+    }
+  }
+  .detailed-info-full-name {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+  }
+  .detailed-info-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    button, .detailed-info-link {
+      display: block;
+      width: 150px;
+      min-height: 25px;
+      margin-top: 10px;
+      text-align: center;
+      padding: 0 25px;
+      font-size: 12px;
+      background-size: 12px;
+      background-repeat: no-repeat;
+      background-position: 10px center;
+      white-space: normal;
+    }
+    h4 {
+      font-size: 14px;
+      width: 150px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+    .detailed-info-link {
+      background-image: url(../images/link.svg);
+      line-height: 25px;
+      padding: 0px 24px;
+    }
+    .search-results-my-pins {
+      background-image: url(../images/my-pins.svg);
+      line-height: 15px;
+      padding: 0px 24px;
+      &.unpin {
+        background-image: url(../images/unpin.svg);
+      }
+    }
+    .search-results-save-existing {
+      background-image: url(../images/list-add.svg);
+      background-size: 14px;
+    }
+  }
+}
+.detailed-info-player {
+  padding: 20px 0;
+  max-width: 220px;
+  .main-info{
+    margin-bottom: 15px;
+    p{
+      font-size: 12px;
+      margin-bottom: 5px;
+      img {
+        margin: 0 5px;
+      }
+    }
+  }
+  .detailed-info-loan-status {
+    margin-left: 10px;
+    color: #27AAE1;
+    padding-left: 13px;
+    background-image: url(../images/loan.svg);
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 11px;
+  }
+}
+.detailed-info-positions {
+  padding: 20px 0;
+  width: 220px;
+}
+.detailed-info-transfer-history {
+  padding: 20px 0;
+  .transfer-history-list {
+    p {
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+    .transfer-date {
+      color: #a0a0a0;
+      margin-right: 10px;
+    }
+  }
+}
+.detailed-info-performance {
+  padding: 20px 0;
+  max-width: 410px;
+  .performance-list {
+    p {
+      width: 200px;
+      font-size: 12px;
+      margin-bottom: 5px;
+      float: left;
+    }
+    p:nth-child(2n+1) {
+      clear: both;
+      margin-right: 10px;
+    }
+  }
+}
+.detailed-info-injuries {
+  padding: 20px 0;
+  .injury-history-list {
+    p {
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+    .injury-date {
+      color: #a0a0a0;
+      margin-right: 10px;
+    }
+  }
+}
+
+
+.position-wrapper {
+  width: 220px;
+  height: 143px;
+  background-image: url(./../images/field-scheme.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  .favorite-position {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    transform: translateY(-50%);
+    .position-mark {
+      width: 14px;
+      height: 14px;
+      background-color: #27AAE1;
+      border-radius: 50%;
+    }
+  }
+  .favorite-position:hover .tooltip,
+  .prefered-position:hover .tooltip {
+    display: block;
+  }
+}
+
+
+.dark-theme {
+  td.detailed-info {
+    background-color: $main-background-dark;
+    border-top: 1px solid $border-dark;
+    border-bottom: 1px solid $border-dark;
+  }
+  .btn-default {
+    color: #fff;
+  }
+  .search-results-save-existing {
+    background-image: url(../images/list-add-white.svg) !important;
+  }
+  .detailed-info-link {
+    background-image: url(../images/link-white.svg) !important;
+  }
+}

@@ -1,0 +1,51 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeInOut {
+  from {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes error {
+  from {
+    background-color: #27AAE1;
+  }
+  10% {
+    background-color: #D64541;
+  }
+  90% {
+    background-color: #D64541;
+  }
+  to {
+    background-color: #27AAE1;
+  }
+}
+
+.fadeIn-enter {
+  opacity: 0.05;
+  transition: all 0.2s;
+}
+.fadeIn-enter.fadeIn-enter-active {
+  opacity: 1;
+}
+.fadeIn-leave {
+  opacity: 1;
+  transition: all 0.2s;
+}
+.fadeIn-leave.fadeIn-leave-active {
+  opacity: 0.05;
+}

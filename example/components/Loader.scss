@@ -1,0 +1,21 @@
+.loader {
+  background-image: url(../images/loader.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 60px;
+  height: 60px;
+}
+.white {
+  @extend .loader;
+  background-image: url(../images/loader-white.svg);
+}
+
+:global(.dark-theme) {
+  .loader {
+    background-image: url(../images/loader-white.svg);
+  }
+}

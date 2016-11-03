@@ -1,0 +1,90 @@
+.video-player-wrapper {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.event {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e6e6e6;
+  cursor: pointer;
+  &:hover {
+    background-color: #eee;
+  }
+  .event-number {
+    flex: 0 0 auto;
+    width: 55px;
+    height: 55px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 55px;
+    font-weight: 400;
+    border-right: 1px solid #e6e6e6;
+  }
+  .event-name {
+    flex: 1 1 auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 15px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .event-time, .event-date {
+    float: right;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 15px;
+    margin-top: 7px;
+    color: #787878;
+    font-size: 12px;
+    line-height: 12px;
+    &:before {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 6px;
+      margin-top: -2px;
+      width: 12px;
+      height: 12px;
+      background-image: url(../images/clock-gray.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100%;
+    }
+  }
+  .event-date:before {
+    background-image: url(../images/calendar-gray.svg);
+  }
+  &.playing {
+    .event-name {
+      color: #27AAE1;
+    }
+    .event-number {
+      background-color: #27AAE1;
+      font-size: 0;
+      background-image: url(../images/play-white.svg);
+      background-repeat: no-repeat;
+      background-size: 17px;
+      background-position: center;
+    }
+  }
+}
+
+.dark-theme {
+  .event {
+    border-bottom: 1px solid $border-dark;
+    &:hover {
+      background-color: $main-background-dark;
+    }
+    .event-number {
+      border-right: 1px solid $border-dark;
+    }
+    .event-time, .event-date {
+      color: $secondary-text-color;
+    }
+  }
+}

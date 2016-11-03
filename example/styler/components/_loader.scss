@@ -1,0 +1,71 @@
+
+
+@mixin googleStyleLoader($size, $name, $color) {
+    $circ: $size * 0.8 * 3.14;
+
+    .#{$name}-container {
+        position:absolute;
+        width:$size;
+        height:$size;
+        top:50%;
+        left:50%;
+        transform-origin:50% 50%;
+        animation: spin360 1.2s infinite linear;
+        margin-top: -$size/2;
+        margin-left: -$size/2;
+        .#{$name}-path {
+            stroke: $color;
+            stroke-dasharray: 0, $circ;
+            stroke-dashoffset: 0;
+            animation: dash-#{$name} 2s infinite linear;
+            stroke-linecap: round;
+            stroke-linejoin: bevel;
+        }
+    }
+
+    @keyframes dash-#{$name} {
+        0% {
+            stroke-dasharray:0, $circ;
+            stroke-dashoffset:0;
+        }
+        50% {
+            stroke-dasharray:($circ * 0.9), $circ;
+            stroke-dashoffset: -($circ * 0.1);
+        }
+        100% {
+          stroke-dasharray: 0,$circ;
+          stroke-dashoffset: -$circ;
+         }
+    }
+}
+
+#loader {
+    position:absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    //background-color:fade-out(white,0.7);
+    z-index:1000;
+    color:white;
+
+    @include googleStyleLoader(100px,"loader",$color);
+}
+
+#modal-loader {
+    float: left;
+    position:relative;
+    @include googleStyleLoader(30px,"modal-loader",$color);
+    .modal-loader-container {
+        top: 17px;
+        left: 13px;
+    }
+}
+@keyframes spin360 {
+    0% {
+        transform:rotate(0deg);
+    }
+    100% {
+        transform:rotate(360deg);
+    }
+}

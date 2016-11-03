@@ -1,0 +1,65 @@
+body {
+  margin: 0;
+  min-width: 1280px;
+  background: #fff;
+  &.iPad {
+    zoom: 80%;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  &::-webkit-scrollbar-button {
+    display:none;
+  }
+  &::-webkit-scrollbar-thumb{
+    display: none;
+  }
+}
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+}
+*:focus {
+  outline: none !important;
+}
+.clearfix:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.wyscout-app {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100vh;
+  background-color: #fff;
+  color: #333;
+  &.dark-theme {
+    background-color: $main-background-dark;
+    color: $text-color-dark;
+
+    .Select-control {
+      background-color: inherit !important; /*here and below is rewriting JS styles*/
+      border: 1px solid $border-dark !important;
+    }
+    .Select-placeholder, .Select-value, .Select-input, .Select-input>input {
+      color: #fff !important;
+    }
+    .Select-menu-outer {
+      background-color: $secondary-background-dark !important;
+      border: 1px solid $border-dark !important;
+    }
+    .Select-option {
+      color: $secondary-text-color-dark;
+    }
+    .Select-option.is-selected, .Select-option.is-focused {
+      background-color: inherit !important;
+      color: #fff !important;
+    }
+  }
+}
+main {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: flex-start;
+}

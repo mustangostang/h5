@@ -1,0 +1,85 @@
+.login-wrapper {
+  width: 100%;
+  height: calc(100vh);
+  position: relative;
+}
+.login-body {
+  width: 600px;
+  border: 1px solid #e6e6e6;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.login-title-wrapper {
+  padding-top: 60px;
+  background-color: #27AAE1;
+  background-image: url(../images/lock.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 23%;
+  background-size: 30px;
+  position: relative;
+  &.error {
+    animation: error 4s ease;
+  }
+}
+.login-title, .login-error {
+  padding: 8px 20px;
+  text-align: center;
+  color: #fff;
+  background-color: #2294C4;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+}
+.login-error {
+  width: 100%;
+  background-color: #C23F3B;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  animation: fadeInOut 4s ease forwards;
+}
+.login-form {
+  padding: 20px;
+  padding-top: 35px;
+}
+.login-form-group {
+  position:relative;
+}
+.login-field {
+  margin-bottom: 35px;
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width: 100%;
+  border:none;
+  border-bottom:1px solid #ccc;
+  transition: 0.2s ease all;
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid #27AAE1;
+    margin-bottom: 34px;
+  }
+}
+.login-label {
+  color:#999;
+  font-size:14px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all;
+}
+.login-field:focus ~ label, .login-field:valid ~ label 		{
+  top:-20px;
+  font-size:14px;
+  color: #27AAE1;
+}
+.login-submit {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 80px;
+}
