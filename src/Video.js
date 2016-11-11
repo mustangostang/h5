@@ -280,15 +280,13 @@ class Video extends React.Component {
 		              barClassName="slider-bar"
 		              value={ [this.state.startCrop, this.state.seekProgress, this.state.endCrop] }
 		              onChange={ (val) => this._setTimeline(val[0], val[1], val[2]) }
-		              onSliderClick={ (val) => this._setTime(val[1],true)}
+		              onSliderClick={ (val) => this._setTime(val, true)}
 		              step={ 1 }
 		              min={ 0 }
 		              max={ 100 }
+		              pearling={true}
 		              snapDragDisabled={true}
 		              withBars>
-	                <div styleName="slider-handle slider-handle-crop slider-handle-crop-left"></div>
-	                <div styleName="slider-handle slider-handle-current"></div>
-	                <div styleName="slider-handle slider-handle-crop slider-handle-crop-right"></div>
 		            </ReactSlider>
 		           </div>
 						}

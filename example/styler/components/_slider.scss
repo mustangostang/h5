@@ -5,30 +5,7 @@ $slider-handle-size: 16px;
 .slider {
     height: $slider-height;
 }
-.r5-crop-mode {
-    .r5-seekbar-wraper:before {
-        display: none;
-    }
-    .r5-timecode {
-        top: 45px;
-    }
-    .slider-bar {
-        height: 15px;
-        top: -15px;
-    }
-    .slider-bar-3,.slider-bar-0 {
-        background-color: #EBEBEB;
-        z-index: 3;
-    }
-    .slider-bar-2 {
-        background-color: #9BD1E8;
-        z-index: 1;
-    }
-    .slider-bar-1 {
-        background-color: #18A9E3;
-        z-index: 2;
-    }
-}
+
 .slider-handle {
     background-color: darken($color, 10%);
     border: 0;
