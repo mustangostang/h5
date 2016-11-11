@@ -2,6 +2,7 @@ import React from "react"
 import ReactDOM from 'react-dom'
 import path from "path"
 import { formatTime } from "./utils/dateTime.js"
+import ReactSlider from 'react-slider';
 
 var videoEvents = ["play","pause","playing","abort","progress","ratechange","canplay","canplaythrough","durationchange","emptied","ended","loadeddata","loadedmetadata","loadstart","seeked","seeking","stalled","suspend","timeupdate","volumechange","waiting","error","encrypted","mozaudioavailable","interruptbegin","interruptend"];
 
@@ -114,6 +115,11 @@ class Video extends React.Component {
 
 	_durationchange(){
 
+	}
+
+	_setTimeline(start, current, end) {
+		this.setState({startCrop: start, endCrop: end})
+		this._setTime(current, true)
 	}
 
 	// loading progress bar
@@ -235,7 +241,7 @@ class Video extends React.Component {
 		if(!this.props.controls) controlsClass = "r5-controls-hidden";
 
 		return (
-			<div className="r5-wraper" style={wraperStyle}>
+			<div className={`r5-wraper ${this.props.cropVideoLength ? 'r5-crop-mode' :''}`} style={wraperStyle}>
 				<div className="video-flex-wrapper">
 					<video ref="video" {...options} >
 						{  this.$getSource( sources) }
@@ -248,7 +254,7 @@ class Video extends React.Component {
 				<div className="r5-content" style={contentWraperStyle}>{this.props.children}</div>
 				<div className={controlsClass}>
 					<div className="r5-seekbar-wraper" ref="seekbarWraper">
-						{!!this.props.timeMarkers &&
+						{ Boolean(this.props.timeMarkers) &&
 						  this.props.timeMarkers.map((marker, i) => {
 						  const duration = (this.$video && this.$video.duration) || 5;
 						  const pos = marker.value / duration * 100;
@@ -258,11 +264,34 @@ class Video extends React.Component {
 								onClick={()=>this._setTime(marker.value, false)}
 							></span>
 						})}
-						<div className="r5-seekbar-loaded" ref="seekbar" style={{width:this.state.loadedProgress+"%"}}></div>
-						<div className="r5-seekbar" ref="loadedbar" style={{width:this.state.seekProgress+"%"}}></div>
-						<input type="range" min="0.0" max="100.0" step="0.5"
-							value={this.state.seekProgress}
-							onChange={e=>this._setTime(e.target.value,true)} />
+						{ !this.props.cropVideoLength &&
+							<div>
+								<div className="r5-seekbar-loaded" ref="seekbar" style={{width:this.state.loadedProgress+"%"}}></div>
+								<div className="r5-seekbar" ref="loadedbar" style={{width:this.state.seekProgress+"%"}}></div>
+								<input type="range" min="0.0" max="100.0" step="0.5"
+									value={this.state.seekProgress}
+									onChange={e=>this._setTime(e.target.value,true)} />
+							</div>
+						}
+						{ this.props.cropVideoLength &&
+							<div>
+		            <ReactSlider ref="seekbar" ref="loadedbar"
+		              className="range-filter"
+		              barClassName="slider-bar"
+		              value={ [this.state.startCrop, this.state.seekProgress, this.state.endCrop] }
+		              onChange={ (val) => this._setTimeline(val[0], val[1], val[2]) }
+		              onSliderClick={ (val) => this._setTime(val[1],true)}
+		              step={ 1 }
+		              min={ 0 }
+		              max={ 100 }
+		              snapDragDisabled={true}
+		              withBars>
+	                <div styleName="slider-handle slider-handle-crop slider-handle-crop-left"></div>
+	                <div styleName="slider-handle slider-handle-current"></div>
+	                <div styleName="slider-handle slider-handle-crop slider-handle-crop-right"></div>
+		            </ReactSlider>
+		           </div>
+						}
 					</div>
 					<div className="r5-panel">
 						<button className="r5-play" onClick={this._togglePlay}>
@@ -290,6 +319,8 @@ class Video extends React.Component {
 
 		this.state = {
 			isPlaying: this.props.autoPlay?true: false,
+			startCrop: this.props.startCrop,
+			endCrop: this.props.endCrop,
 			isMuted: false,
 			currentTime: "00:00",
 			duration: "00:00",
@@ -389,7 +420,9 @@ Video.propTypes = {
 	width: 							React.PropTypes.string,
 	height: 						React.PropTypes.string,
 	volume: 						React.PropTypes.number,
-	seekDisabled: 					React.PropTypes.bool,
+	seekDisabled: 			React.PropTypes.bool,
+
+	cropVideoLength:    React.PropTypes.bool,
 
 	// overlayStyle: 			React.PropTypes.object,
 }
@@ -405,6 +438,9 @@ Video.defaultProps = {
 	controlPanelStyle: "overlay",
 	preload: 				"auto",
 	seekDisabled: false,
+	cropVideoLength: false,
+	startCrop: 10,
+	endCrop: 90
 }
 
 export default Video
