@@ -35,3 +35,7 @@ export const formatTime = function(seconds, guide) {
 
   return h + m + s;
 };
+
+export const formatFromPercent = function(percent, duration) {
+  return (percent * duration / 100)
+}

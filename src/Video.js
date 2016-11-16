@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from 'react-dom'
 import path from "path"
-import { formatTime } from "./utils/dateTime.js"
+import { formatTime, formatFromPercent } from "./utils/dateTime.js"
 import ReactSlider from 'react-slider';
 
 var videoEvents = ["play","pause","playing","abort","progress","ratechange","canplay","canplaythrough","durationchange","emptied","ended","loadeddata","loadedmetadata","loadstart","seeked","seeking","stalled","suspend","timeupdate","volumechange","waiting","error","encrypted","mozaudioavailable","interruptbegin","interruptend"];
@@ -118,6 +118,7 @@ class Video extends React.Component {
 	}
 
 	_setTimeline(start, current, end) {
+
 		this.setState({startCrop: start, endCrop: end})
 		this._setTime(current, true)
 	}
@@ -222,7 +223,36 @@ class Video extends React.Component {
 		return $sources;
 	}
 
-	render(){
+	renderCropSlider = (duration) => {
+		const startCropSec = formatFromPercent(this.state.startCrop, duration);
+		const endCropSec = formatFromPercent(this.state.endCrop, duration);
+
+		return(
+			<div>
+        <ReactSlider ref="seekbar" ref="loadedbar"
+          className="range-filter"
+          barClassName="slider-bar"
+          value={ [this.state.startCrop, this.state.seekProgress, this.state.endCrop] }
+          onChange={ (val) => this._setTimeline(val[0], val[1], val[2]) }
+          onSliderClick={ (val) => this._setTime(val, true)}
+          step={ 1 }
+          min={ 0 }
+          max={ 100 }
+          pearling={true}
+          snapDragDisabled={true}
+          withBars>
+            <div className="crop-handle"><span className="crop-time">({formatTime(startCropSec)})</span></div>
+				    <div className="active"></div>
+				    <div className="crop-handle"><span className="crop-time">{formatTime(endCropSec)}</span></div>
+        </ReactSlider>
+        <div className="r5-timecode">
+					<span className="current-time">{this.state.currentTime}</span>
+					<span className="duration">{this.state.duration}</span>
+				</div>
+       </div>
+			)
+	}
+	render() {
 		const { subtitles, loop, autoPlay, poster,preload, sources, controlPanelStyle, autoHideControls } = this.props
 		//html5 video options
 		var options = { loop, autoPlay, poster,preload };
@@ -273,41 +303,30 @@ class Video extends React.Component {
 									onChange={e=>this._setTime(e.target.value,true)} />
 							</div>
 						}
-						{ this.props.cropVideoLength &&
-							<div>
-		            <ReactSlider ref="seekbar" ref="loadedbar"
-		              className="range-filter"
-		              barClassName="slider-bar"
-		              value={ [this.state.startCrop, this.state.seekProgress, this.state.endCrop] }
-		              onChange={ (val) => this._setTimeline(val[0], val[1], val[2]) }
-		              onSliderClick={ (val) => this._setTime(val, true)}
-		              step={ 1 }
-		              min={ 0 }
-		              max={ 100 }
-		              pearling={true}
-		              snapDragDisabled={true}
-		              withBars>
-		            </ReactSlider>
-		           </div>
+						{
+							this.props.cropVideoLength && this.$video &&
+							this.renderCropSlider(this.$video.duration)
 						}
 					</div>
-					<div className="r5-panel">
-						<button className="r5-play" onClick={this._togglePlay}>
-							{ this.state.isPlaying ? this.icons.pause : this.icons.play }
-						</button>
-						<div className="r5-volume">
-							<div className={ this.state.isMuted ? "volume-icon muted" : this.state.volume > .7 ? "volume-icon high" : "volume-icon medium" }></div>
-							<div className="r5-volume-inner" style={{width:"71px"}}>
-								<div className="r5-volume-bar" style={{width: (this.state.volume*100)+"%"}}></div>
-								<input type="range" min="0" max="1" step="0.05" value={this.state.volume} onChange={e=>this._volume(e.target.value)}/>
+					{ !this.props.cropVideoLength &&
+						<div className="r5-panel">
+							<button className="r5-play" onClick={this._togglePlay}>
+								{ this.state.isPlaying ? this.icons.pause : this.icons.play }
+							</button>
+							<div className="r5-volume">
+								<div className={ this.state.isMuted ? "volume-icon muted" : this.state.volume > .7 ? "volume-icon high" : "volume-icon medium" }></div>
+								<div className="r5-volume-inner" style={{width:"71px"}}>
+									<div className="r5-volume-bar" style={{width: (this.state.volume*100)+"%"}}></div>
+									<input type="range" min="0" max="1" step="0.05" value={this.state.volume} onChange={e=>this._volume(e.target.value)}/>
+								</div>
 							</div>
+							<div className="r5-timecode">
+								<span className="current-time">{this.state.currentTime}</span>
+								<span className="duration">{this.state.duration}</span>
+							</div>
+							<div className="r5-fullscreen" onClick={this._fullscreen}></div>
 						</div>
-						<div className="r5-timecode">
-							<span className="current-time">{this.state.currentTime}</span>
-							<span className="duration">{this.state.duration}</span>
-						</div>
-						<div className="r5-fullscreen" onClick={this._fullscreen}></div>
-					</div>
+					}
 				</div>
 			</div>
 		)
