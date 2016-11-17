@@ -499,11 +499,16 @@
 
     .handle {
       top: 2px;
-      width: 20px;
+      width: 14px;
       height: 27px;
       background-color: #fff;
       border: 1px solid #cacaca;
+      border-radius: 4px;
       z-index: 3 !important;
+      cursor: pointer;
+      &:hover {
+        background-color: #eee;
+      }
     }
     .crop-time {
       font-size: 14px;
@@ -512,23 +517,17 @@
       position: absolute;
       top: 3px;
       right: 25px;
+      pointer-events: none;
     }
     .crop-time-sec {
       color: #cacaca;
       padding-left: 5px;
     }
-    .handle-0{
-      margin-left: -2px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
     .handle-1 {
-      width: 2px;
+      width: 3px;
+      height: 23px;
       border: 0;
-    }
-    .handle-2 {
-      border-radius: 4px;
-      cursor: pointer;
+      top: 4px;
     }
     .r5-seekbar-wraper {
       width: 95%;
