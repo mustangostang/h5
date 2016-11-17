@@ -117,8 +117,10 @@ class Video extends React.Component {
 
 	}
 
-	_setTimeline(start, current, end) {
-
+	_setTimeline(start, current, end, duration) {
+		if (this.props.getCropValue){
+			this.props.getCropValue(formatFromPercent(start, duration), formatFromPercent(end, duration));
+		}
 		this.setState({startCrop: start, endCrop: end})
 		this._setTime(current, true)
 	}
@@ -226,14 +228,18 @@ class Video extends React.Component {
 	renderCropSlider = (duration) => {
 		const startCropSec = formatFromPercent(this.state.startCrop, duration);
 		const endCropSec = formatFromPercent(this.state.endCrop, duration);
-
+		const cropLength = Math.floor(endCropSec - startCropSec, 10);
 		return(
 			<div>
+				<div className="r5-timecode">
+					<div className="current-time">0:00</div>
+					<div className="duration">{this.state.duration}</div>
+				</div>
         <ReactSlider ref="seekbar" ref="loadedbar"
           className="range-filter"
           barClassName="slider-bar"
           value={ [this.state.startCrop, this.state.seekProgress, this.state.endCrop] }
-          onChange={ (val) => this._setTimeline(val[0], val[1], val[2]) }
+          onChange={ (val) => this._setTimeline(val[0], val[1], val[2], duration) }
           onSliderClick={ (val) => this._setTime(val, true)}
           step={ 1 }
           min={ 0 }
@@ -241,14 +247,16 @@ class Video extends React.Component {
           pearling={true}
           snapDragDisabled={true}
           withBars>
-            <div className="crop-handle"><span className="crop-time">({formatTime(startCropSec)})</span></div>
-				    <div className="active"></div>
-				    <div className="crop-handle"><span className="crop-time">{formatTime(endCropSec)}</span></div>
+            <div className="crop-handle">
+            	<div className="crop-time">0s <span className="crop-time-sec">{`(${formatTime(startCropSec)})`}</span></div>
+            </div>
+				    <div className="active">
+				    <div className="crop-time">{this.state.currentTime}</div>
+				    </div>
+				    <div className="crop-handle">
+				    	<div className="crop-time">{`${cropLength}s`}<span className="crop-time-sec">{`(${formatTime(endCropSec)})`}</span></div>
+				    </div>
         </ReactSlider>
-        <div className="r5-timecode">
-					<span className="current-time">{this.state.currentTime}</span>
-					<span className="duration">{this.state.duration}</span>
-				</div>
        </div>
 			)
 	}

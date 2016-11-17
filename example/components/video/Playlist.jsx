@@ -81,6 +81,10 @@ class Playlist extends React.Component {
       this.props.setVideoVolume(+volume)
   }
 
+  onChangeCropValue = (start, end) => {
+    console.log(start, end)
+  }
+
   renderVideo = () => {
     if (!this.props.video) return null; // Loader here?
     const { id, url } = this.props.video;
@@ -89,6 +93,7 @@ class Playlist extends React.Component {
       autoPlay sources={ [url] }
       controlPanelStyle="fixed"
       cropVideoLength={true}
+      getCropValue={this.onChangeCropValue}
       width="896" height="504"
       onVolumeChange={(v) => this.setVolume(v)}
       onEnded={ this.props.onNextVideo } />);
