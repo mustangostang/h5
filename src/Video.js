@@ -111,6 +111,9 @@ class Video extends React.Component {
 			newState.isPlaying = false;
 		}
 		this.setState(newState);
+		if (percent == this.state.endCrop) {
+			this._pause()
+		}
 	}
 
 	_durationchange(){
@@ -122,11 +125,7 @@ class Video extends React.Component {
 			this.props.getCropValue(formatFromPercent(start, duration), formatFromPercent(end, duration));
 		}
 		this.setState({startCrop: start, endCrop: end, mergeLabel: end - start < 15 ? true : false})
-		if (current !== end) {
-			this._setTime(current, true)
-		} else {
-			this._pause();
-		}
+		this._setTime(current, true)
 	}
 
 	// loading progress bar
@@ -253,22 +252,10 @@ class Video extends React.Component {
           pearling={true}
           snapDragDisabled={true}
           withBars>
-            <div className="crop-handle">
-            	{ !this.state.mergeLabel &&<div className="crop-time">0s <span className="crop-time-sec">{`(${formatTime(startCropSec)})`}</span></div>}
-            </div>
-				    <div className="active">
-				    	{ !this.state.mergeLabel &&<div className="crop-time">{this.state.currentTime}</div>}
-				    	{ this.state.mergeLabel &&
-				    		<div className="crop-time">
-				    			0s
-						    	<span className="crop-time-sec">{`(${formatTime(startCropSec)})`}</span>
-						    	{`${cropLength}s`}
-						    	<span className="crop-time-sec">{`(${formatTime(endCropSec)})`}</span>
-					    	</div>
-				    	}
-				    </div>
+         		<div className="crop-handle"></div>
+				    <div className="active"></div>
 				    <div className="crop-handle">
-				    	{ !this.state.mergeLabel &&<div className="crop-time">{`${cropLength}s`}<span className="crop-time-sec">{`(${formatTime(endCropSec)})`}</span></div>}
+				    	<div className="crop-time">{`${cropLength}s`}</div>
 				    </div>
         </ReactSlider>
        </div>
