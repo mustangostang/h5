@@ -111,7 +111,7 @@ class Video extends React.Component {
 			newState.isPlaying = false;
 		}
 		this.setState(newState);
-		if (percent == this.state.endCrop) {
+		if (Math.floor(percent,10) == Math.floor(this.state.endCrop, 10)) {
 			this._pause()
 		}
 	}
