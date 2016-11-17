@@ -122,7 +122,11 @@ class Video extends React.Component {
 			this.props.getCropValue(formatFromPercent(start, duration), formatFromPercent(end, duration));
 		}
 		this.setState({startCrop: start, endCrop: end, mergeLabel: end - start < 15 ? true : false})
-		this._setTime(current, true)
+		if (current !== end) {
+			this._setTime(current, true)
+		} else {
+			this._pause();
+		}
 	}
 
 	// loading progress bar
