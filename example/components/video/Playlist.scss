@@ -19,11 +19,12 @@
   }
 }
 .bodyCropMode {
+  height: 680px;
   @media (max-height: 700px) {
-    height: 552px;
+    height: 527px;
   }
   @media (max-width: 1024px) {
-    height: 552px;
+    height: 527px;
   }
 }
 .video {
@@ -473,10 +474,13 @@
       display: none;
     }
     .r5-play {
-      top: 10px;
+      top: 60px;
+    }
+    .r5-volume, .r5-fullscreen {
+      top: 65px;
     }
     .r5-controls.r5-controls--fixed {
-      height: 140px;
+      height: 115px;
     }
     .r5-timecode {
       top: 30px;
@@ -530,8 +534,14 @@
       top: 4px;
     }
     .r5-seekbar-wraper {
-      width: 95%;
-      top: 60px;
+      width: 867px;
+      top: 10px;
+      @media (max-height: 700px) {
+        width: 595px;
+      }
+      @media (max-width: 1024px) {
+        width: 595px;
+      }
     }
     .r5-timecode {
       width: 100%;
