@@ -247,14 +247,10 @@ class Video extends React.Component {
           pearling={true}
           snapDragDisabled={true}
           withBars>
-            <div className="crop-handle">
-            	<div className="crop-time">0s <span className="crop-time-sec">{`(${formatTime(startCropSec)})`}</span></div>
-            </div>
-				    <div className="active">
-				    <div className="crop-time">{this.state.currentTime}</div>
-				    </div>
+            <div className="crop-handle"></div>
+				    <div className="active"></div>
 				    <div className="crop-handle">
-				    	<div className="crop-time">{`${cropLength}s`}<span className="crop-time-sec">{`(${formatTime(endCropSec)})`}</span></div>
+				    	<div className="crop-time">{`${cropLength}s`}</div>
 				    </div>
         </ReactSlider>
        </div>
