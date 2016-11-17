@@ -18,6 +18,14 @@
     height: 502px;
   }
 }
+.bodyCropMode {
+  @media (max-height: 700px) {
+    height: 552px;
+  }
+  @media (max-width: 1024px) {
+    height: 552px;
+  }
+}
 .video {
   display: flex;
   flex-direction: column;
@@ -463,6 +471,12 @@
   .r5-crop-mode {
     .r5-seekbar-wraper:before {
       display: none;
+    }
+    .r5-play {
+      top: 10px;
+    }
+    .r5-controls.r5-controls--fixed {
+      height: 140px;
     }
     .r5-timecode {
       top: 30px;

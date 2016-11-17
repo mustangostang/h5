@@ -121,7 +121,7 @@ class Video extends React.Component {
 		if (this.props.getCropValue){
 			this.props.getCropValue(formatFromPercent(start, duration), formatFromPercent(end, duration));
 		}
-		this.setState({startCrop: start, endCrop: end})
+		this.setState({startCrop: start, endCrop: end, mergeLabel: end - start < 15 ? true : false})
 		this._setTime(current, true)
 	}
 
@@ -229,6 +229,7 @@ class Video extends React.Component {
 		const startCropSec = formatFromPercent(this.state.startCrop, duration);
 		const endCropSec = formatFromPercent(this.state.endCrop, duration);
 		const cropLength = Math.floor(endCropSec - startCropSec, 10);
+		const OneSec = Math.floor(100/duration,100);
 		return(
 			<div>
 				<div className="r5-timecode">
@@ -242,15 +243,28 @@ class Video extends React.Component {
           onChange={ (val) => this._setTimeline(val[0], val[1], val[2], duration) }
           onSliderClick={ (val) => this._setTime(val, true)}
           step={ 1 }
+          minDistance={ OneSec }
           min={ 0 }
           max={ 100 }
           pearling={true}
           snapDragDisabled={true}
           withBars>
-            <div className="crop-handle"></div>
-				    <div className="active"></div>
+            <div className="crop-handle">
+            	{ !this.state.mergeLabel &&<div className="crop-time">0s <span className="crop-time-sec">{`(${formatTime(startCropSec)})`}</span></div>}
+            </div>
+				    <div className="active">
+				    	{ !this.state.mergeLabel &&<div className="crop-time">{this.state.currentTime}</div>}
+				    	{ this.state.mergeLabel &&
+				    		<div className="crop-time">
+				    			0s
+						    	<span className="crop-time-sec">{`(${formatTime(startCropSec)})`}</span>
+						    	{`${cropLength}s`}
+						    	<span className="crop-time-sec">{`(${formatTime(endCropSec)})`}</span>
+					    	</div>
+				    	}
+				    </div>
 				    <div className="crop-handle">
-				    	<div className="crop-time">{`${cropLength}s`}</div>
+				    	{ !this.state.mergeLabel &&<div className="crop-time">{`${cropLength}s`}<span className="crop-time-sec">{`(${formatTime(endCropSec)})`}</span></div>}
 				    </div>
         </ReactSlider>
        </div>
@@ -312,7 +326,6 @@ class Video extends React.Component {
 							this.renderCropSlider(this.$video.duration)
 						}
 					</div>
-					{ !this.props.cropVideoLength &&
 						<div className="r5-panel">
 							<button className="r5-play" onClick={this._togglePlay}>
 								{ this.state.isPlaying ? this.icons.pause : this.icons.play }
@@ -324,13 +337,14 @@ class Video extends React.Component {
 									<input type="range" min="0" max="1" step="0.05" value={this.state.volume} onChange={e=>this._volume(e.target.value)}/>
 								</div>
 							</div>
+							{ !this.props.cropVideoLength &&
 							<div className="r5-timecode">
 								<span className="current-time">{this.state.currentTime}</span>
 								<span className="duration">{this.state.duration}</span>
 							</div>
+							}
 							<div className="r5-fullscreen" onClick={this._fullscreen}></div>
 						</div>
-					}
 				</div>
 			</div>
 		)
@@ -346,7 +360,7 @@ class Video extends React.Component {
 			currentTime: "00:00",
 			duration: "00:00",
 			loadedProgress: 0,
-			seekProgress: 0,// how much has played
+			seekProgress: this.props.startCrop ? this.props.startCrop : 0,// how much has played
 			volume: this.props.volume,
 			activeSubtitle:null,
 			seekDisabled: this.props.seekDisabled?true: false,

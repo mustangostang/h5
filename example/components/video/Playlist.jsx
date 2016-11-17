@@ -105,7 +105,7 @@ class Playlist extends React.Component {
 
   render() {
     return (
-      <div className={ styles.body }>
+      <div className={ `${styles.body} ${styles.bodyCropMode}` }>
         <div className={ styles.close } onClick={ this.props.onCloseVideo }></div>
         <div className={ styles.video }>
           { this.renderTitle() }
