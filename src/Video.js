@@ -40,7 +40,6 @@ class Video extends React.Component {
 		// $video.addEventListener("timeupdate", this._timeupdate )
 		$video.addEventListener("progress", this._progress )
 
-
 		if( this.props.autoPlay && !this.seekbarUpdateTimer ) this.seekbarUpdateInterval();
 	}
 
@@ -111,9 +110,18 @@ class Video extends React.Component {
 			newState.isPlaying = false;
 		}
 		this.setState(newState);
-		if (Math.floor(percent,10) == Math.floor(this.state.endCrop, 10)) {
-			this._pause()
+		if (this.props.cropVideoLength) {
+			if (Math.floor(percent,100) == this.state.endCrop) {
+				this._pause()
+			}
+			if (percent < this.state.startCrop) {
+				this._setTime(this.state.startCrop+1, true)
+			}
+			if (percent > this.state.endCrop) {
+				this._setTime(this.state.endCrop-1, true)
+			}
 		}
+
 	}
 
 	_durationchange(){
@@ -351,7 +359,7 @@ class Video extends React.Component {
 			currentTime: "00:00",
 			duration: "00:00",
 			loadedProgress: 0,
-			seekProgress: this.props.startCrop ? this.props.startCrop : 0,// how much has played
+			seekProgress: 0,// how much has played
 			volume: this.props.volume,
 			activeSubtitle:null,
 			seekDisabled: this.props.seekDisabled?true: false,

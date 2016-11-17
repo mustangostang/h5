@@ -94,6 +94,8 @@ class Playlist extends React.Component {
       controlPanelStyle="fixed"
       cropVideoLength={true}
       getCropValue={this.onChangeCropValue}
+      startCrop={15}
+      endCrop={80}
       width="896" height="504"
       onVolumeChange={(v) => this.setVolume(v)}
       onEnded={ this.props.onNextVideo } />);
