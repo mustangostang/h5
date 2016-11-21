@@ -117,11 +117,11 @@ class Video extends React.Component {
 			if (Math.floor(percent,100) == this.state.endCrop) {
 				this._pause()
 			}
-			if (percent < this.state.startCrop) {
-				this._setTime(this.state.startCrop+1, true)
+			if (percent+0.01 < this.state.startCrop) {
+				this._setTime(this.state.startCrop, true)
 			}
-			if (percent > this.state.endCrop) {
-				this._setTime(this.state.endCrop-1, true)
+			if (percent-0.01 > this.state.endCrop) {
+				this._setTime(this.state.endCrop, true)
 			}
 		}
 
