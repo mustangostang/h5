@@ -77,6 +77,9 @@ class Video extends React.Component {
 		// calculate width of seek bar and progress;
 		this.$seekbarWraper = ReactDOM.findDOMNode( this.refs.seekbarWraper );
 		this.setState({duration: formatTime(this.$video.duration) })
+		if (this.props.getCropValue) {
+			this.props.getCropValue(formatFromPercent(this.props.startCrop, this.$video.duration), formatFromPercent(this.props.endCrop, this.$video.duration));
+		}
 	}
 
 	seekbarUpdateInterval(){
