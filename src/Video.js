@@ -248,7 +248,7 @@ class Video extends React.Component {
 					<div className="duration">{this.state.duration}</div>
 				</div>
         <ReactSlider ref="seekbar" ref="loadedbar"
-          className="range-filter"
+          className="crop-video-range"
           barClassName="slider-bar"
           value={ [this.state.startCrop, this.state.seekProgress, this.state.endCrop] }
           onChange={ (val) => this._setTimeline(val[0], val[1], val[2], duration) }
