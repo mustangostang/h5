@@ -269,7 +269,14 @@ class Video extends React.Component {
 				    	<div className="crop-time">{`${cropLength}s`}</div>
 				    </div>
         </ReactSlider>
-       </div>
+        <div>
+					<div className="r5-seekbar-loaded" ref="seekbar" style={{width:this.state.loadedProgress+"%"}}></div>
+					<div className="r5-seekbar" style={{width:this.state.seekProgress+"%"}}></div>
+						<input type="range" min="0.0" max="100.0" step="0.5"
+						value={this.state.seekProgress}
+						onChange={e=>this._setTime(e.target.value,true)} />
+				</div>
+      </div>
 			)
 	}
 	render() {
@@ -317,7 +324,7 @@ class Video extends React.Component {
 						{ !this.props.cropVideoLength &&
 							<div>
 								<div className="r5-seekbar-loaded" ref="seekbar" style={{width:this.state.loadedProgress+"%"}}></div>
-								<div className="r5-seekbar" ref="loadedbar" style={{width:this.state.seekProgress+"%"}}></div>
+								<div className="r5-seekbar" style={{width:this.state.seekProgress+"%"}}></div>
 								<input type="range" min="0.0" max="100.0" step="0.5"
 									value={this.state.seekProgress}
 									onChange={e=>this._setTime(e.target.value,true)} />
