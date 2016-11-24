@@ -531,13 +531,14 @@
       display: none;
     }
     .r5-seekbar-wraper {
-      width: 867px;
+      width: 95%;
+      max-width: 867px;
       top: 10px;
       @media (max-height: 700px) {
-        width: 595px;
+        max-width: 595px;
       }
       @media (max-width: 1024px) {
-        width: 595px;
+        max-width: 595px;
       }
     }
     .r5-timecode {
