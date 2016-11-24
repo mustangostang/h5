@@ -256,7 +256,7 @@ class Video extends React.Component {
           value={ [this.state.startCrop, this.state.seekProgress, this.state.endCrop] }
           onChange={ (val) => this._setTimeline(val[0], val[1], val[2], duration) }
           onSliderClick={ (val) => this._setTime(val, true)}
-          step={ 0.5 }
+          step={ 0.1 }
           minDistance={ OneSec }
           min={ 0 }
           max={ 100 }
