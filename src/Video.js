@@ -12,7 +12,7 @@ class Video extends React.Component {
 		super(props,context)
 		// store all public handler here, and return this api object to parent component;
 		this.api = {};
-		var pubHandlers = ["play","pause","seekbarUpdateInterval","togglePlay","setTime","fullscreen","volume"];
+		var pubHandlers = ["play","pause","seekbarUpdateInterval","updateLoaderBar","togglePlay","setTime","fullscreen","volume"];
 		// save public handlers to api object
 		pubHandlers.forEach( name => {
 			this["_"+name] = this.api[name] = this["_"+name].bind(this)
@@ -81,7 +81,9 @@ class Video extends React.Component {
 			this.props.getCropValue(formatFromPercent(this.props.startCrop, this.$video.duration), formatFromPercent(this.props.endCrop, this.$video.duration));
 		}
 	}
-
+	_updateLoaderBar() {
+		this.setState({loadedVideo: true })
+	}
 	seekbarUpdateInterval(){
 		this.seekbarUpdateTimer = setInterval( this._timeupdate, 80);
 	}
@@ -104,6 +106,7 @@ class Video extends React.Component {
 
 	// update seek bar width;
 	_timeupdate(e){
+		this._progress();
 		var percent = this.$video.currentTime / this.$video.duration * 100;
 		var newState = {
 			seekProgress: percent,
@@ -250,7 +253,7 @@ class Video extends React.Component {
 					<div className="current-time">0:00</div>
 					<div className="duration">{this.state.duration}</div>
 				</div>
-        <ReactSlider ref="seekbar" ref="loadedbar"
+        <ReactSlider
           className="crop-video-range"
           barClassName="slider-bar"
           value={ [this.state.startCrop, this.state.seekProgress, this.state.endCrop] }
@@ -269,8 +272,8 @@ class Video extends React.Component {
 				    	<div className="crop-time">{`${cropLength}s`}</div>
 				    </div>
         </ReactSlider>
-        <div>
-					<div className="r5-seekbar-loaded" ref="seekbar" style={{width:this.state.loadedProgress+"%"}}></div>
+        <div ref="seekbarWrap">
+					<div className="r5-seekbar-loaded" ref="seekbar" style={{width: this.state.loadedVideo ? '100%' : this.state.loadedProgress+"%"}}></div>
 					<div className="r5-seekbar" style={{width:this.state.seekProgress+"%"}}></div>
 						<input type="range" min="0.0" max="100.0" step="0.5"
 						value={this.state.seekProgress}
