@@ -43,6 +43,11 @@ class Video extends React.Component {
 		if( this.props.autoPlay && !this.seekbarUpdateTimer ) this.seekbarUpdateInterval();
 	}
 
+	_onMarkerClick(value) {
+		if(this.props.onMarkerClick && typeof this.props.onMarkerClick == "function" ){
+			this.props.onMarkerClick( value, this.api );
+		}
+	}
 
 	_onEnded(e){
 		//console.log("metadata loaded")
@@ -117,13 +122,14 @@ class Video extends React.Component {
 		}
 		this.setState(newState);
 		if (this.props.cropVideoLength) {
-			if (Math.floor(percent,100) == this.state.endCrop) {
+			if (this.state.endCrop - percent < 1) {
 				this._pause()
 			}
 			if (percent+0.01 < this.state.startCrop) {
 				this._setTime(this.state.startCrop, true)
 			}
 			if (percent > this.state.endCrop) {
+				this._pause()
 				this._setTime(this.state.endCrop, true)
 			}
 		}
@@ -139,7 +145,6 @@ class Video extends React.Component {
 			this.props.getCropValue(formatFromPercent(start, duration), formatFromPercent(end, duration));
 		}
 		this.setState({startCrop: start, endCrop: end, mergeLabel: end - start < 15 ? true : false})
-		this._setTime(current, true)
 	}
 
 	// loading progress bar
@@ -258,7 +263,6 @@ class Video extends React.Component {
           barClassName="slider-bar"
           value={ [this.state.startCrop, this.state.seekProgress, this.state.endCrop] }
           onChange={ (val) => this._setTimeline(val[0], val[1], val[2], duration) }
-          onSliderClick={ (val) => this._setTime(val, true)}
           step={ 0.1 }
           minDistance={ OneSec }
           min={ 0 }
@@ -321,7 +325,7 @@ class Video extends React.Component {
 							return <span key={"marker" + i}
 								className={`r5-time-marker ${marker.active ? 'active' : ''}`}
 								style={{position: 'absolute', display: 'inline-block', left: '' +pos + '%'}}
-								onClick={()=>this._setTime(marker.value, false)}
+								onClick={()=>this._onMarkerClick(marker.value)}
 							></span>
 						})}
 						{ !this.props.cropVideoLength &&
