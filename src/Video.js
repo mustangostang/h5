@@ -36,8 +36,7 @@ class Video extends React.Component {
 		$video.addEventListener("requestFullScreen", this._onFullscreen )
 		$video.addEventListener("cancelFullscreen", this._onExitFullscreen )
 
-		// this update interval gap is too big make progressbar not snapy
-		// $video.addEventListener("timeupdate", this._timeupdate )
+		$video.addEventListener("timeupdate", this._timeupdate )
 		$video.addEventListener("progress", this._progress )
 
 		if( this.props.autoPlay && !this.seekbarUpdateTimer ) this.seekbarUpdateInterval();
