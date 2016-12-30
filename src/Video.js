@@ -109,6 +109,7 @@ class Video extends React.Component {
 	}
 
 	_stopOnMarker() {
+	  if (!this.state.isPlaying) return;
 		const time = this.state.currentMillisecondsTime;
 		const currentVideoTime = _.round(this.$video.currentTime, 2);
     const values = _.map(this.props.timeMarkers, marker => {
