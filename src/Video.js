@@ -89,10 +89,10 @@ class Video extends React.Component {
 		this.setState({loadedVideo: true })
 	}
 	seekbarUpdateInterval(){
-		this.seekbarUpdateTimer = setInterval( this._timeupdate, 80);
+		this.seekbarUpdateTimer = setInterval( this._timeupdate, 20);
 	}
 	_seekbarUpdateInterval(){
-		this.seekbarUpdateTimer = setInterval( this._timeupdate, 80);
+		this.seekbarUpdateTimer = setInterval( this._timeupdate, 20);
 	}
 
 	_setTime( percent, isPercent ){
@@ -108,10 +108,31 @@ class Video extends React.Component {
 		this.setState({seekProgress: percent });
 	}
 
+	_stopOnMarker() {
+		const time = this.state.currentMillisecondsTime;
+		const currentVideoTime = _.round(this.$video.currentTime, 2);
+    const values = _.map(this.props.timeMarkers, marker => {
+      return _.round(marker.value, 2);
+    });
+
+    _.map(values, value => {
+      if (time < value && currentVideoTime >= value) {
+        this._pause();
+        this.$video.currentTime = value;
+      }
+      if (currentVideoTime !== time) {
+        this.setState({ currentMillisecondsTime: currentVideoTime})
+      }
+		});
+	}
+
 	// update seek bar width;
 	_timeupdate(e){
 		this._progress();
 		var percent = this.$video.currentTime / this.$video.duration * 100;
+
+		this._stopOnMarker();
+
 		var newState = {
 			seekProgress: percent,
 			currentTime: formatTime(this.$video.currentTime)
@@ -379,6 +400,7 @@ class Video extends React.Component {
 			volume: this.props.volume,
 			activeSubtitle:null,
 			seekDisabled: this.props.seekDisabled?true: false,
+      currentMillisecondsTime: 0,
 		}
 
 		// var fill = this.props.controlPanelStyle == "overlay"?"#ffffff":"#3FBA97";

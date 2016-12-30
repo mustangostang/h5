@@ -4,7 +4,7 @@
   "description": "html5 video component for react.js app",
   "main": "lib/index",
   "scripts": {
-    "start": "webpack-dev-server --inline --display-error-details --config example.config.js",
+    "start": "webpack-dev-server --watch-poll  --inline --display-error-details --config example.config.js",
     "prepublish": "npm run build:commonjs & npm run build:umd ",
     "build": "npm run build:commonjs & npm run build:umd ",
     "build:commonjs": "cp -R src/. lib/ && babel ./src -d lib",
