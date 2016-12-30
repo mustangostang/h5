@@ -13,7 +13,7 @@ config = {
     },
 
     output: {
-        library: 'ListPlugin',
+        library: 'Beckham',
         libraryTarget: 'umd'
     },
 
