@@ -39,7 +39,7 @@ class Video extends React.Component {
 		$video.addEventListener("timeupdate", this._timeupdate )
 		$video.addEventListener("progress", this._progress )
 
-		if( this.props.autoPlay && !this.seekbarUpdateTimer ) this.seekbarUpdateInterval();
+		if( this.props.autoPlay && !this.seekbarUpdateTimer ) this._seekbarUpdateInterval();
 	}
 
 	_onMarkerClick(value) {
@@ -88,11 +88,9 @@ class Video extends React.Component {
 	_updateLoaderBar() {
 		this.setState({loadedVideo: true })
 	}
-	seekbarUpdateInterval(){
-		this.seekbarUpdateTimer = setInterval( this._timeupdate, 20);
-	}
+
 	_seekbarUpdateInterval(){
-		this.seekbarUpdateTimer = setInterval( this._timeupdate, 20);
+		this.seekbarUpdateTimer = setInterval( this._timeupdate, 30);
 	}
 
 	_setTime( percent, isPercent ){
@@ -189,7 +187,7 @@ class Video extends React.Component {
 	}
 	_togglePlay(){
 		//console.log("toggle play")
-		if( !this.seekbarUpdateTimer ) this.seekbarUpdateInterval();
+		if( !this.seekbarUpdateTimer ) this._seekbarUpdateInterval();
 
 		if(!this.state.isPlaying){
 			this._play()
