@@ -8,7 +8,7 @@ export default class Main extends React.Component {
 
   render() {
     return (
-      <button className="btn btn-primary" onClick={ () => this.props.onPlayVideo(132447, 'goals') }>Play Video</button>
+      <button className="btn btn-primary" onClick={ () => this.props.onPlayVideo(382, 'goals') }>Play Video</button>
     );
   }
 }
