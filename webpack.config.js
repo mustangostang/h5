@@ -49,9 +49,12 @@ config = {
         new webpack.ProvidePlugin({
             React: 'react',
             ReactDOM: 'react-dom',
-            Localized: __dirname + '/src/locales/localize',
         }),
-        new ExtractTextPlugin("../../stylesheets/generated/app-bundle.css"),
+        new webpack.DefinePlugin({
+          'process.env':{
+            'NODE_ENV': JSON.stringify('production')
+          }
+        }),
     ]
 
 };
