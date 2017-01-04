@@ -90,7 +90,7 @@ class Video extends React.Component {
 	}
 
 	_seekbarUpdateInterval(){
-		this.seekbarUpdateTimer = setInterval( this._timeupdate, 50);
+		this.seekbarUpdateTimer = setInterval( this._timeupdate, 30);
 	}
 
 	_setTime( percent, isPercent ){
@@ -177,7 +177,10 @@ class Video extends React.Component {
 		for( let ii = 0; ii<buf.length; ii++ ){
 			total += buf.end(ii) - buf.start(ii);
 		}
-		this.setState({loadedProgress: total / this.$video.duration * 100 })
+		var loadedProgress = total / this.$video.duration * 100;
+		if (this.state.loadedProgress !== loadedProgress) {
+			this.setState({loadedProgress: loadedProgress })
+		}
 	}
 
 	_play() {
