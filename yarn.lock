@@ -3110,7 +3110,7 @@ react-css-modules@^3.7.10:
     lodash "^4.6.1"
     object-unfreeze "^1.0.2"
 
-react-dom@^15.0.2:
+react-dom@^15.3.1:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.4.1.tgz#d54c913261aaedb17adc20410d029dcc18a1344a"
   dependencies:
@@ -3145,7 +3145,7 @@ react-slider@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/react-slider/-/react-slider-0.7.0.tgz#12aed9adc1f43cee613d2d9f4ea6d5a2cd7f4424"
 
-react@^15.0.2:
+react@^15.3.1:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.4.1.tgz#498e918602677a3983cd0fd206dfe700389a0dd6"
   dependencies:
