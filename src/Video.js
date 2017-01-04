@@ -90,7 +90,7 @@ class Video extends React.Component {
 	}
 
 	_seekbarUpdateInterval(){
-		this.seekbarUpdateTimer = setInterval( this._timeupdate, 30);
+		this.seekbarUpdateTimer = setInterval( this._timeupdate, 40);
 	}
 
 	_setTime( percent, isPercent ){
@@ -177,18 +177,20 @@ class Video extends React.Component {
 	}
 
 	_play() {
+		if( !this.seekbarUpdateTimer ) this._seekbarUpdateInterval();
 		if(this.$video.currentTime >= this.$video.duration ) this.$video.currentTime = 0;
 		this.$video.play();
 		this.setState({isPlaying: true})
 	}
+
 	_pause() {
 		this.$video.pause();
 		this.setState({isPlaying: false})
+		if(this.seekbarUpdateTimer) clearInterval( this.seekbarUpdateTimer );
 	}
+
 	_togglePlay(){
 		//console.log("toggle play")
-		if( !this.seekbarUpdateTimer ) this._seekbarUpdateInterval();
-
 		if(!this.state.isPlaying){
 			this._play()
 		}else{
