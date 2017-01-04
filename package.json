@@ -1,14 +1,14 @@
 {
   "name": "@wyscout/beckham",
-  "version": "1.0.29",
+  "version": "1.0.30",
   "description": "html5 video component for react.js app",
   "main": "lib/index",
   "scripts": {
     "start": "webpack-dev-server --watch-poll  --inline --display-error-details --config example.config.js",
     "prepublish": "npm run build:commonjs && npm run build:umd",
     "build": "in-publish && npm run build:commonjs && npm run build:umd || true",
-    "build:commonjs": "in-publish && cp -R src/. lib/ && babel ./src -d lib || true",
-    "build:umd": "in-publish && webpack dist/index.js || true",
+    "build:commonjs": "cp -R src/. lib/ && babel ./src -d lib || true",
+    "build:umd": "webpack dist/index.js || true",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
