@@ -451,6 +451,26 @@
     }
   }
 
+  .r5-quality {
+    width: 90px;
+    height: 28px;
+    position: absolute;
+    top: 15px;
+    left: 140px;
+    .Select-control, .Select-input, .Select-value, .Select-placeholder {
+      height: 30px;
+      font-size: 14px;
+    }
+    .Select-menu-outer {
+      top: auto;
+      bottom: 100%;
+      border-radius: 4px 4px 0 0 !important;
+    }
+    &.is-open > .Select-control {
+      border-radius: 0 0 4px 4px !important;
+    }
+  }
+
   .r5-fullscreen {
     width: 30px;
     height: 30px;
@@ -476,7 +496,7 @@
     .r5-play {
       top: 60px;
     }
-    .r5-volume, .r5-fullscreen {
+    .r5-volume, .r5-fullscreen, .r5-quality {
       top: 65px;
     }
     .r5-controls.r5-controls--fixed {
