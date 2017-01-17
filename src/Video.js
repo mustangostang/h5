@@ -33,9 +33,10 @@ class Video extends React.Component {
 		$video.addEventListener("loadedmetadata", this._metaDataLoaded )
 		$video.addEventListener("ended", this._onEnded )
 		$video.addEventListener("volumechange", this._onVolumeChange )
-		$video.addEventListener("requestFullScreen", this._onFullscreen )
-		$video.addEventListener("cancelFullscreen", this._onExitFullscreen )
-
+		if (!this.props.fullscreenSupport) {
+			$video.addEventListener("requestFullScreen", this._onFullscreen )
+			$video.addEventListener("cancelFullscreen", this._onExitFullscreen )
+		}
 		$video.addEventListener("timeupdate", this._timeupdate )
 		$video.addEventListener("progress", this._progress )
 
@@ -206,6 +207,9 @@ class Video extends React.Component {
 	}
 
 	_fullscreen(e){
+		if (this.props.fullscreenSupport) {
+			return this.props.onFullscreen();
+		}
 		var apis = ["requestFullScreen","mozRequestFullScreen","webkitRequestFullscreen","msRequestFullscreen"];
 		for(var ii=0; ii<apis.length; ii++){
 			if(this.$video[apis[ii]]) return this.$video[apis[ii]]();
@@ -520,7 +524,8 @@ Video.defaultProps = {
 	seekDisabled: false,
 	cropVideoLength: false,
 	startCrop: 10,
-	endCrop: 90
+	endCrop: 90,
+	fullscreenSupport: false
 }
 
 export default Video
