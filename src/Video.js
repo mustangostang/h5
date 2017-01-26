@@ -382,11 +382,18 @@ class Video extends React.Component {
 									<input type="range" min="0" max="1" step="0.05" value={this.state.volume} onChange={e=>this._volume(e.target.value)}/>
 								</div>
 							</div>
-							<Select
-								className="r5-quality"
-								multiple={ false }
-								searchable={ false }
-								placeholder="HD" />
+							{
+								this.props.hasQuality &&
+								<Select
+									className="r5-quality"
+									multiple={ false }
+									searchable={ false }
+									clearable={ false }
+									value={ this.props.quality }
+									options={ this.props.qualityOptions }
+									onChange={ this.props.onQualityChange }
+									placeholder="HD" />
+							}
 							{ !this.props.cropVideoLength &&
 							<div className="r5-timecode">
 								<span className="current-time">{this.state.currentTime}</span>
@@ -526,7 +533,8 @@ Video.defaultProps = {
 	seekDisabled: false,
 	cropVideoLength: false,
 	startCrop: 10,
-	endCrop: 90
+	endCrop: 90,
+	hasQuality: false
 }
 
 export default Video

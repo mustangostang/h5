@@ -96,6 +96,10 @@ class Playlist extends React.Component {
       getCropValue={this.onChangeCropValue}
       startCrop={15}
       endCrop={80}
+      hasQuality={true}
+      quality={"hd"}
+      qualityOptions={[{value: 'fullhd', label: 'FULL HD'}, {value: 'hd', label: 'HD'}, {value: 'sd', label: 'SD'}, {value: 'lq', label: 'LQ'} ]}
+      onQualityChange={ (res) => {console.log(res)} }
       width="896" height="504"
       onVolumeChange={(v) => this.setVolume(v)}
       onEnded={ this.props.onNextVideo } />);
