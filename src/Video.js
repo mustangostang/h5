@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import path from "path"
 import { formatTime, formatFromPercent } from "./utils/dateTime.js"
 import ReactSlider from 'react-slider';
+import Select from 'react-select';
 
 var videoEvents = ["play","pause","playing","abort","progress","ratechange","canplay","canplaythrough","durationchange","emptied","ended","loadeddata","loadedmetadata","loadstart","seeked","seeking","stalled","suspend","timeupdate","volumechange","waiting","error","encrypted","mozaudioavailable","interruptbegin","interruptend"];
 
@@ -385,6 +386,18 @@ class Video extends React.Component {
 									<input type="range" min="0" max="1" step="0.05" value={this.state.volume} onChange={e=>this._volume(e.target.value)}/>
 								</div>
 							</div>
+							{
+								this.props.hasQuality &&
+								<Select
+									className="r5-quality"
+									multiple={ false }
+									searchable={ false }
+									clearable={ false }
+									value={ this.props.quality }
+									options={ this.props.qualityOptions }
+									onChange={ this.props.onQualityChange }
+									placeholder="HD" />
+							}
 							{ !this.props.cropVideoLength &&
 							<div className="r5-timecode">
 								<span className="current-time">{this.state.currentTime}</span>
@@ -525,7 +538,8 @@ Video.defaultProps = {
 	cropVideoLength: false,
 	startCrop: 10,
 	endCrop: 90,
-	fullscreenSupport: false
+	fullscreenSupport: false,
+	hasQuality: false
 }
 
 export default Video
