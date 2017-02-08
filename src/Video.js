@@ -40,8 +40,6 @@ class Video extends React.Component {
 		}
 		this._timeupdate();
 		$video.addEventListener("progress", this._progress )
-
-		if( this.props.autoPlay && !this.seekbarUpdateTimer ) this._seekbarUpdateInterval();
 	}
 
 	_onMarkerClick(value) {
@@ -187,7 +185,7 @@ class Video extends React.Component {
 	}
 
 	_play() {
-		if( !this.seekbarUpdateTimer ) this._seekbarUpdateInterval();
+		this._timeupdate();
 		if(this.$video.currentTime >= this.$video.duration ) this.$video.currentTime = 0;
 		this.$video.play();
 		this.setState({isPlaying: true})
@@ -293,7 +291,7 @@ class Video extends React.Component {
 			<div>
 				<div className="r5-timecode">
 					<div className="current-time">0:00</div>
-					<div className="duration">{this.state.duration}</div>
+					<div className="duration">{this.state.duration || 0}</div>
 				</div>
         <ReactSlider
           className="crop-video-range"
@@ -310,7 +308,7 @@ class Video extends React.Component {
          		<div className="crop-handle"></div>
 				    <div className="active"></div>
 				    <div className="crop-handle">
-				    	<div className="crop-time">{`${cropLength}s`}</div>
+				    	<div className="crop-time">{`${cropLength || 0}s`}</div>
 				    </div>
         </ReactSlider>
         <div ref="seekbarWrap">
