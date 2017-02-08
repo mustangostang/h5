@@ -5,7 +5,7 @@ var version = require('./package.json').version;
 var path = require('path');
 
 config = {
-    devtool: process.env.NODE_ENV !== 'production' ? 'cheap-eval-source-map' : null,
+    devtool: process.env.NODE_ENV !== 'production' ? '  source-map' : null,
 
     entry: {
         main: [

@@ -22,6 +22,10 @@ class Playlist extends React.Component {
     setVideoVolume: React.PropTypes.func.isRequired,
   }
 
+  state = {
+    quality: 'hd'
+  }
+
   componentDidMount() {
     document.addEventListener('keydown', this.onEscape);
   }
@@ -92,14 +96,6 @@ class Playlist extends React.Component {
       volume={this.props.volume}
       autoPlay sources={ [url] }
       controlPanelStyle="fixed"
-      cropVideoLength={true}
-      getCropValue={this.onChangeCropValue}
-      startCrop={15}
-      endCrop={80}
-      hasQuality={true}
-      quality={"hd"}
-      qualityOptions={[{value: 'fullhd', label: 'FULL HD'}, {value: 'hd', label: 'HD'}, {value: 'sd', label: 'SD'}, {value: 'lq', label: 'LQ'} ]}
-      onQualityChange={ (res) => {console.log(res)} }
       width="896" height="504"
       onVolumeChange={(v) => this.setVolume(v)}
       onEnded={ this.props.onNextVideo } />);

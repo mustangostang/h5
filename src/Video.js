@@ -38,7 +38,7 @@ class Video extends React.Component {
 			$video.addEventListener("requestFullScreen", this._onFullscreen )
 			$video.addEventListener("cancelFullscreen", this._onExitFullscreen )
 		}
-		$video.addEventListener("timeupdate", this._timeupdate )
+		this._timeupdate();
 		$video.addEventListener("progress", this._progress )
 
 		if( this.props.autoPlay && !this.seekbarUpdateTimer ) this._seekbarUpdateInterval();
@@ -92,7 +92,7 @@ class Video extends React.Component {
 	}
 
 	_seekbarUpdateInterval(){
-		this.seekbarUpdateTimer = setInterval( this._timeupdate, 30);
+		// this.seekbarUpdateTimer = setInterval( this._timeupdate, 30);
 	}
 
 	_setTime( percent, isPercent ){
@@ -129,6 +129,7 @@ class Video extends React.Component {
 
 	// update seek bar width;
 	_timeupdate(e){
+		requestAnimationFrame(this._timeupdate);
 		this._progress();
 		var percent = this.$video.currentTime / this.$video.duration * 100;
 
