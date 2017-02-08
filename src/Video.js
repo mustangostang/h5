@@ -129,10 +129,10 @@ class Video extends React.Component {
 
 	// update seek bar width;
 	_timeupdate(e){
-		requestAnimationFrame(this._timeupdate);
+		this.requestId  = requestAnimationFrame(this._timeupdate);
 		this._progress();
 		var percent = this.$video.currentTime / this.$video.duration * 100;
-
+		if (percent === this.state.percent) return;
 		this._stopOnMarker();
 
 		var newState = {
@@ -196,7 +196,10 @@ class Video extends React.Component {
 	_pause() {
 		this.$video.pause();
 		this.setState({isPlaying: false})
-		if(this.seekbarUpdateTimer) clearInterval( this.seekbarUpdateTimer );
+		if (this.requestId){
+			window.cancelAnimationFrame(this.requestId);
+      this.requestId = undefined;
+		};
 	}
 
 	_togglePlay(){
@@ -483,7 +486,11 @@ class Video extends React.Component {
 	}
 
 	componentWillUnmount(){
-		if(this.seekbarUpdateTimer) clearInterval( this.seekbarUpdateTimer );
+		if (this.requestId) {
+			window.cancelAnimationFrame(this.requestId);
+    	this.requestId = undefined;
+		}
+
 		var $video = this.$video;
 		if ($video) {
 			$video.removeEventListener("loadedmetadata", this._metaDataLoaded )
