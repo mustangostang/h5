@@ -188,6 +188,9 @@ class Video extends React.Component {
 		for(var ii =0 ;ii<sources.length; ii++){
 			let ss = sources[ii]
 			let extName = path.extname( ss ).substr(1).split('?')[0];
+			if (extName.length > 4) {
+				extname = 'mp4';
+			}
 			$sources.push(
 				<source src={ss} type={"video/"+extName} key={ii}/>
 			)
