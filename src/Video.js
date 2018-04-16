@@ -1,6 +1,7 @@
 import React from "react"
 import ReactDOM from 'react-dom'
 import path from "path"
+import PropTypes from "prop-types";
 import { formatTime } from "./utils/dateTime.js"
 
 var videoEvents = ["play","pause","playing","abort","progress","ratechange","canplay","canplaythrough","durationchange","emptied","ended","loadeddata","loadedmetadata","loadstart","seeked","seeking","stalled","suspend","timeupdate","volumechange","waiting","error","encrypted","mozaudioavailable","interruptbegin","interruptend"];
@@ -342,27 +343,27 @@ class Video extends React.Component {
 
 Video.propTypes = {
 	// callbacks
-	metaDataLoaded: 		React.PropTypes.func,// video's meta data loaded, return video element
-	onEnded: 					  React.PropTypes.func,
-	onVolumeChange: 		React.PropTypes.func,
+	metaDataLoaded: 		PropTypes.func,// video's meta data loaded, return video element
+	onEnded: 					  PropTypes.func,
+	onVolumeChange: 		PropTypes.func,
 
 	// properties
-	sources: 						React.PropTypes.array,
-	subtitles: 					React.PropTypes.array, // [{src:"foo.vtt", label:"English",srclan:"en" }]
-	autoPlay: 					React.PropTypes.bool,
-	controls: 					React.PropTypes.bool,
-	autoHideControls: 	React.PropTypes.bool,
-	controlPanelStyle: 	React.PropTypes.oneOf(["overlay","fixed"]), // overlay, fixed
-	preload: 						React.PropTypes.oneOf(["auto","none","metadata"]),
-	loop: 							React.PropTypes.bool,
-	mute: 							React.PropTypes.bool,
-	poster: 						React.PropTypes.string,
-	width: 							React.PropTypes.string,
-	height: 						React.PropTypes.string,
-	volume: 						React.PropTypes.number,
-	seekDisabled: 					React.PropTypes.bool,
+	sources: 						PropTypes.array,
+	subtitles: 					PropTypes.array, // [{src:"foo.vtt", label:"English",srclan:"en" }]
+	autoPlay: 					PropTypes.bool,
+	controls: 					PropTypes.bool,
+	autoHideControls: 	PropTypes.bool,
+	controlPanelStyle: 	PropTypes.oneOf(["overlay","fixed"]), // overlay, fixed
+	preload: 						PropTypes.oneOf(["auto","none","metadata"]),
+	loop: 							PropTypes.bool,
+	mute: 							PropTypes.bool,
+	poster: 						PropTypes.string,
+	width: 							PropTypes.string,
+	height: 						PropTypes.string,
+	volume: 						PropTypes.number,
+	seekDisabled: 					PropTypes.bool,
 
-	// overlayStyle: 			React.PropTypes.object,
+	// overlayStyle: 			PropTypes.object,
 }
 
 Video.defaultProps = {
